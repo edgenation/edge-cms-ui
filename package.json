@@ -1,0 +1,37 @@
+{
+  "name": "edge-cms-ui",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A JavaScript CMS",
+  "main": "src/index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test",
+    "lib": "src",
+    "example": "example"
+  },
+  "scripts": {
+    "test": "gulp test",
+    "start": "node example",
+    "build": "gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edgenation/edge-cms-ui.git"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": ">=5.x.x",
+    "npm": ">=2.x.x"
+  },
+  "author": "Chris Sheppard (http://www.chrissheppard.co.uk/)",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/edgenation/edge-cms-ui/issues"
+  },
+  "homepage": "https://github.com/edgenation/edge-cms-ui",
+  "devDependencies": {
+  },
+  "dependencies": {
+  }
+}
