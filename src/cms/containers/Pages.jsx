@@ -1,8 +1,9 @@
 import React from "react";
+import PageList from "../components/PageList.jsx";
 import Pagination from "../components/Pagination.jsx";
 
 
-class PageList extends React.Component {
+class Pages extends React.Component {
     shouldComponentUpdate(nextProps) {
         return this.props.state.pages !== nextProps.state.pages;
     }
@@ -21,7 +22,7 @@ class PageList extends React.Component {
                 <p>Page List</p>
 
                 {pages && pages.size &&
-                    <p>Number of items for this page {pages.size}</p>
+                    <PageList pages={pages}/>
                 }
 
                 {pagination &&
@@ -33,4 +34,4 @@ class PageList extends React.Component {
 }
 
 
-export default PageList;
+export default Pages;
