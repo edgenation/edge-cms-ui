@@ -1,16 +1,16 @@
-import * as reducers from "./cms/reducers";
+import reducers from "./cms/reducers";
 import makeStore from "./cms/core/store";
 import Router from "./cms/core/router";
 import actors from "./cms/actors";
 import { navigationComplete } from "./cms/actions/navigation";
 
 
-import CmsDashboard from "./cms/containers/Dashboard.jsx"
-import CmsPageList from "./cms/containers/PageList.jsx"
+import Dashboard from "./cms/containers/Dashboard.jsx"
+import Pages from "./cms/containers/Pages.jsx"
 
 // Add routes
-Router.addRoute("dashboard", { route: CmsDashboard, location: "GET /" });
-Router.addRoute("pages", { route: CmsPageList, location: "GET /page" });
+Router.addRoute("dashboard", { route: Dashboard, location: "GET /" });
+Router.addRoute("pages", { route: Pages, location: "GET /page" });
 Router.init();
 
 
