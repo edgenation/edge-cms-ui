@@ -1,15 +1,25 @@
 import { fetch } from "../actions/pages";
 
 
-function outOfDate(pages) {
-    let lastUpdated = pages.get("lastUpdated");
+const INVALIDATE_TIME = 2000;
 
-    // TODO: Use time difference
+function shouldFetch(location, data) {
+    let lastUpdated = data.get("lastUpdated");
+    let dataPage = data.getIn(["items", "meta", "page", "page"], 1);
+    let urlPage = parseInt(location.options.page, 10) || 1;
+
+    // Never fetched
     if (!lastUpdated) {
         return true;
     }
 
-    return false
+    // Different page
+    if (dataPage !== urlPage) {
+        return true;
+    }
+
+    //  Check for out of date or not
+    return Date.now() > lastUpdated + INVALIDATE_TIME;
 }
 
 
@@ -19,10 +29,8 @@ export default function fetchPages(state, dispatch) {
 
     switch (location.name) {
         case "pages":
-            //  Check for out of date or not
-            if (outOfDate(state.pages)) {
-                // TODO: Use page query string etc
-                dispatch(fetch());
+            if (shouldFetch(location, state.pages)) {
+                dispatch(fetch(location.options.page));
             }
         return;
     }

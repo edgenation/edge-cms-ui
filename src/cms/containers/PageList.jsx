@@ -1,4 +1,5 @@
 import React from "react";
+import Pagination from "../components/Pagination.jsx";
 
 
 class PageList extends React.Component {
@@ -13,17 +14,18 @@ class PageList extends React.Component {
     render() {
         const data = this.props.state.pages;
         const pages = data.getIn(["items", "data"]);
+        const pagination = data.getIn(["items", "meta", "page"]);
 
         return (
-            <div>
+            <div style={{ opacity: this.isLoading() ? 0.5 : 1 }}>
                 <p>Page List</p>
 
-                {this.isLoading() &&
-                    <p>Loading...</p>
+                {pages && pages.size &&
+                    <p>Number of items for this page {pages.size}</p>
                 }
 
-                {pages && pages.size &&
-                    <p>Number of pages {pages.size}</p>
+                {pagination &&
+                    <Pagination name="pages" pagination={pagination} current={data.get("page")}/>
                 }
             </div>
         )

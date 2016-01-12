@@ -5,7 +5,9 @@ export function cms(state = Map(), action = {}) {
 }
 
 
-const INITIAL_NAVIGATION_STATE = Map({ location: null });
+const INITIAL_NAVIGATION_STATE = Map({
+    location: null
+});
 
 export function navigation(state = INITIAL_NAVIGATION_STATE, action = {}) {
     switch (action.type)
