@@ -1,0 +1,9 @@
+window.React = require("react");
+window.ReactDOM = require("react-dom");
+window.Immutable = require("immutable");
+window.ReactRedux = require("react-redux");
+window.classNames = require("classnames");
+window.axios = require("axios");
+window.Redux = require("redux");
+window.uniloc = require("uniloc");
+window.thunk = require("redux-thunk");
