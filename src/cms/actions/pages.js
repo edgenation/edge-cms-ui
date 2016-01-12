@@ -2,17 +2,20 @@ import axios from "axios"
 
 
 export function fetch(page = 0) {
-    return (dispatch, getState) => {
-        dispatch({
+    page = parseInt(page, 10) || 0;
+
+    return [
+        {
             type: "PAGES/FETCH",
             page: page
-        });
-
-        axios.get("http://chrissheppard.herokuapp.com/api/page", { params: { offset: page } })
-            .then(function (response) {
-                dispatch(fetched(page, response.data));
-            });
-    };
+        },
+        (dispatch, getState) => {
+            axios.get("http://chrissheppard.herokuapp.com/api/page", { params: { offset: page, limit: 2 } })
+                .then(function (response) {
+                    dispatch(fetched(page, response.data));
+                });
+        }
+    ];
 }
 
 

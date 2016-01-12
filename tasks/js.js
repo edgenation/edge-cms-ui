@@ -38,7 +38,8 @@ gulp.task("js", () => {
                     "classnames": "classNames",
                     "axios": "axios",
                     "uniloc": "uniloc",
-                    "redux-thunk": "thunk"
+                    "redux-thunk": "thunk",
+                    "redux-multi": "multi"
                 },
                 filePattern: /\.jsx?$/
             })

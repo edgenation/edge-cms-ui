@@ -4,7 +4,7 @@ import ApplicationLayout from "./components/ApplicationLayout.jsx"
 import Router from "./core/router"
 
 
-class CmsApp extends React.Component {
+class Application extends React.Component {
     static propTypes = {
         state: React.PropTypes.object.isRequired,
         dispatch: React.PropTypes.func.isRequired
@@ -23,4 +23,4 @@ class CmsApp extends React.Component {
 }
 
 
-export default CmsApp;
+export default Application;
