@@ -10,7 +10,7 @@ class PageList extends React.Component {
         return (
             <div className="list-group">
                 {pages.toJS().map((page, index) =>
-                    <Link name="pages" options={{id: page.id}} className="list-group-item" key={index}>
+                    <Link name="page" options={{id: page.id}} className="list-group-item" key={index}>
                         <PageListItem {...page}/>
                     </Link>
                 )}

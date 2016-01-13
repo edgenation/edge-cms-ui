@@ -1,12 +1,12 @@
-import { fetchPages } from "../actions/pages";
+import { fetchPage } from "../actions/page";
 
 
 const INVALIDATE_TIME = 2000;
 
 function shouldFetch(location, data) {
     let lastUpdated = data.get("lastUpdated");
-    let dataPage = data.getIn(["items", "meta", "page", "page"], 1);
-    let urlPage = parseInt(location.options.page, 10) || 1;
+    let dataId = data.getIn(["page", "id"]);
+    let urlId = location.options.id;
 
     // Never fetched
     if (!lastUpdated) {
@@ -14,7 +14,7 @@ function shouldFetch(location, data) {
     }
 
     // Different page
-    if (dataPage !== urlPage) {
+    if (dataId !== urlId) {
         return true;
     }
 
@@ -23,14 +23,14 @@ function shouldFetch(location, data) {
 }
 
 
-export default function pages(state, dispatch) {
+export default function page(state, dispatch) {
     // Get the current location
     const location = state.navigation.get("location");
 
     switch (location.name) {
-        case "pages":
-            if (shouldFetch(location, state.pages)) {
-                dispatch(fetchPages(location.options.page));
+        case "page":
+            if (shouldFetch(location, state.page)) {
+                dispatch(fetchPage(location.options.id));
             }
         return;
     }

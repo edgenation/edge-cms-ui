@@ -1,7 +1,7 @@
 import API from "../core/api"
 
 
-export function fetch(page = 1, limit = 3) {
+export function fetchPages(page = 1, limit = 3) {
     page = parseInt(page, 10) || 1;
 
     return [
@@ -12,14 +12,14 @@ export function fetch(page = 1, limit = 3) {
         (dispatch, getState) => {
             API.listPages(page, limit)
                 .then(function (response) {
-                    dispatch(fetched(page, response));
+                    dispatch(pagesFetched(page, response));
                 });
         }
     ];
 }
 
 
-export function fetched(page, response) {
+export function pagesFetched(page, response) {
     return {
         type: "PAGES/FETCHED",
         page: page,
