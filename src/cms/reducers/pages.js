@@ -12,10 +12,10 @@ export function pages(state = INITIAL_PAGE_STATE, action = {}) {
                 page: action.page
             });
 
-        case T.PAGES.FETCHED:
+        case T.PAGES.FETCH_SUCCESS:
             return Map({
                 isFetching: false,
-                items: fromJS(action.pages),
+                items: fromJS(action.response),
                 page: action.page,
                 lastUpdated: action.receivedAt
             });

@@ -4,10 +4,13 @@ export default {
     },
     PAGE: {
         FETCH: "PAGE/FETCH",
-        FETCHED: "PAGE/FETCHED"
+        FETCH_SUCCESS: "PAGE/FETCH_SUCCESS",
+        UPDATE: "PAGE/UPDATE",
+        UPDATE_ERROR: "PAGE/UPDATE_ERROR",
+        UPDATE_SUCCESS: "PAGE/UPDATE_SUCCESS"
     },
     PAGES: {
         FETCH: "PAGES/FETCH",
-        FETCHED: "PAGES/FETCHED"
+        FETCH_SUCCESS: "PAGES/FETCH_SUCCESS"
     }
 };

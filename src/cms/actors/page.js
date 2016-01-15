@@ -28,7 +28,7 @@ export default function page(state, dispatch) {
     const location = state.navigation.get("location");
 
     switch (location.name) {
-        case "page":
+        case "edit-page":
             if (shouldFetch(location, state.page)) {
                 dispatch(fetchPage(location.options.id));
             }
