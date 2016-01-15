@@ -1,10 +1,11 @@
 import API from "../core/api"
+import T from "../constants/ACTION_TYPES";
 
 
 export function fetchPage(id) {
     return [
         {
-            type: "PAGE/FETCH",
+            type: T.PAGE.FETCH,
             id: id
         },
         (dispatch, getState) => {
@@ -19,7 +20,7 @@ export function fetchPage(id) {
 
 export function pageFetched(id, response) {
     return {
-        type: "PAGE/FETCHED",
+        type: T.PAGE.FETCHED,
         id: id,
         receivedAt: Date.now(),
         page: response

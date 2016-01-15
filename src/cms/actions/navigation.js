@@ -1,4 +1,5 @@
 import Router from "../core/router";
+import T from "../constants/ACTION_TYPES";
 
 
 // The action to be called when the browser navigates
@@ -9,7 +10,7 @@ export function navigationComplete() {
     console.log("navigationComplete", route.name);
 
     return {
-        type: "NAVIGATION/COMPLETE",
+        type: T.NAVIGATION.COMPLETE,
         location: route
     };
 

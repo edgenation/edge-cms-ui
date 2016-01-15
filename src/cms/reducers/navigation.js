@@ -1,4 +1,5 @@
 import { Map } from "immutable";
+import T from "../constants/ACTION_TYPES";
 
 
 const INITIAL_NAVIGATION_STATE = Map({
@@ -7,7 +8,7 @@ const INITIAL_NAVIGATION_STATE = Map({
 
 export function navigation(state = INITIAL_NAVIGATION_STATE, action = {}) {
     switch (action.type) {
-        case "NAVIGATION/COMPLETE":
+        case T.NAVIGATION.COMPLETE:
             return state.set("location", action.location);
 
         default:

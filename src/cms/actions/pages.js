@@ -1,4 +1,5 @@
 import API from "../core/api"
+import T from "../constants/ACTION_TYPES";
 
 
 export function fetchPages(page = 1, limit = 3) {
@@ -6,7 +7,7 @@ export function fetchPages(page = 1, limit = 3) {
 
     return [
         {
-            type: "PAGES/FETCH",
+            type: T.PAGES.FETCH,
             page: page
         },
         (dispatch, getState) => {
@@ -21,7 +22,7 @@ export function fetchPages(page = 1, limit = 3) {
 
 export function pagesFetched(page, response) {
     return {
-        type: "PAGES/FETCHED",
+        type: T.PAGES.FETCHED,
         page: page,
         receivedAt: Date.now(),
         pages: response
