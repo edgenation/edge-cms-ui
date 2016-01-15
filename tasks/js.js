@@ -10,7 +10,7 @@ import config from "./config";
 
 var plugins = gulpLoadPlugins();
 
-var onError = function (err) {
+var errorHandler = function (err) {
     console.error(err);
     this.emit("end");
 };
@@ -54,9 +54,7 @@ gulp.task("js", () => {
 
     return gulp
         .src(path.join(config.dir.src, config.file.indexJs))
-        .pipe(plugins.plumber({
-            errorHandler: onError
-        }))
+        .pipe(plugins.plumber({ errorHandler }))
         .pipe(bundler)
         .pipe(gulp.dest(config.dir.dist));
 });
