@@ -9,10 +9,23 @@ class PageForm extends BaseForm {
 
         return (
             <form onSubmit={this.handleSubmit.bind(this)}>
-                <TextInput name="title" value={attributes.title} onChange={this.handleInputChange.bind(this)} autoComplete="off"/>
-                <TextInput name="url" value={attributes.url} onChange={this.handleInputChange.bind(this)} autoComplete="off"/>
-                <TextInput name="template" value={attributes.template} onChange={this.handleInputChange.bind(this)} autoComplete="off"/>
-                <button type="submit">Submit</button>
+                <div className="form-group">
+                    <label htmlFor="page-title">Title</label>
+                    <TextInput id="page-title" name="title" value={attributes.title} onChange={this.handleInputChange.bind(this)} autoComplete="off"/>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="page-url">Url</label>
+                    <TextInput id="page-url" name="url" value={attributes.url} onChange={this.handleInputChange.bind(this)} autoComplete="off"/>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="page-template">Template</label>
+                    <TextInput id="page-template" name="template" value={attributes.template} onChange={this.handleInputChange.bind(this)} autoComplete="off"/>
+                </div>
+
+
+                <button className="btn btn-default" type="submit">Submit</button>
             </form>
         );
     }
