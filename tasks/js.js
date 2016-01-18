@@ -26,7 +26,7 @@ gulp.task("js", () => {
         })
             .transform(babelify, {
                 presets: ["es2015", "react"],
-                plugins: ["transform-class-properties", "transform-decorators"]
+                plugins: ["transform-class-properties", "transform-decorators", "transform-object-rest-spread"]
             })
             .transform(exposify, {
                 expose: {
