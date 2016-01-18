@@ -7,26 +7,46 @@ class BaseForm extends React.Component {
 
         this.state = {
             id: this.props.resource.get("id"),
-            attributes: this.props.resource.get("attributes").toJS()
+            attributes: this.props.resource.get("attributes").toJS(),
+            errors: {}
         };
     }
 
     handleInputChange(e) {
         // Update the state with the new value
         this.setState(function (previousState) {
+            let { name, value, required } = e.target;
             let attributes = previousState.attributes;
-            attributes[e.target.name] = e.target.value;
-            return { attributes: attributes };
+            let errors = previousState.errors;
+
+            // Update attribute
+            attributes[name] = value;
+
+            // TODO: Validate and check errors
+            if (required) {
+                errors[name] = "BLUR!";
+            }
+
+            return { attributes, errors };
         });
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log("TODO: Submit form");
 
-        // TODO: Check if the attributes are empty (empty form)
+        const { id, attributes, errors } = this.state;
+
+        let hasErrors = Object.keys(errors).length;
+
+        console.log("TODO: Submit form");
+        console.log(this.state);
+
+        // TODO: Check for errors
         // TODO: Check if we are creating or updating
-        // todo: this.props.dispatch
+
+        // TODO: Get the action from props or something? T.PAGE.FETCH_SUCCESS
+        //this.props.dispatch();
+        // dispatch(formSaving(T.PAGE.FETCH_SUCCESS, id, attributes));
     }
 }
 

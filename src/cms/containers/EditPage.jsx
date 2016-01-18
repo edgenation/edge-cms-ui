@@ -1,18 +1,6 @@
 import React from "react";
 import PageForm from "../components/PageForm.jsx";
-
-
-class Region extends React.Component {
-    render() {
-        const { id, attributes } = this.props;
-
-        return (
-            <p>Region[{attributes.get("name")}] = {id}</p>
-        );
-    }
-}
-
-
+import ContentForm from "../components/ContentForm.jsx";
 
 
 class EditPage extends React.Component {
@@ -37,7 +25,17 @@ class EditPage extends React.Component {
                         <PageForm dispatch={this.props.dispatch} resource={this.props.state.page.get("page")} />
 
                         {attributes.get("regions").map((region, index) =>
-                            <Region key={index} {...region.toObject()}/>
+                            <div key={index} className="panel panel-default">
+                                <div className="panel-heading">
+                                    <h2 className="panel-title" title={region.get("id")}>{region.getIn(["attributes","name"])}</h2>
+                                </div>
+
+                                <div className="panel-body">
+                                    {region.getIn(["attributes", "content"]).map((content, index) =>
+                                        <ContentForm key={index} dispatch={this.props.dispatch} resource={content}/>
+                                    )}
+                                </div>
+                            </div>
                         )}
                     </div>
                 }
