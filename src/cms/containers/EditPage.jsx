@@ -1,6 +1,7 @@
 import React from "react";
 import PageForm from "../components/PageForm.jsx";
 import ContentForm from "../components/ContentForm.jsx";
+import T from "../constants/ACTION_TYPES";
 
 
 class EditPage extends React.Component {
@@ -22,7 +23,7 @@ class EditPage extends React.Component {
                 <p>Page</p>
                 {id &&
                     <div>
-                        <PageForm dispatch={this.props.dispatch} resource={this.props.state.page.get("page")} />
+                        <PageForm action={T.PAGE} dispatch={this.props.dispatch} resource={this.props.state.page.get("page")} />
 
                         {attributes.get("regions").map((region, index) =>
                             <div key={index} className="panel panel-default">

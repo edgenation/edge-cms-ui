@@ -1,7 +1,14 @@
 import React from "react";
+import { saveForm } from "../actions/form";
 
 
 class BaseForm extends React.Component {
+    static propTypes = {
+        action: React.PropTypes.object.isRequired,
+        resource: React.PropTypes.object.isRequired,
+        dispatch: React.PropTypes.func.isRequired
+    };
+
     constructor(props) {
         super(props);
 
@@ -42,11 +49,14 @@ class BaseForm extends React.Component {
         console.log(this.state);
 
         // TODO: Check for errors
-        // TODO: Check if we are creating or updating
+        if (hasErrors) {
+            return;
+        }
 
-        // TODO: Get the action from props or something? T.PAGE.FETCH_SUCCESS
-        //this.props.dispatch();
-        // dispatch(formSaving(T.PAGE.FETCH_SUCCESS, id, attributes));
+        let actionType = id ? "UPDATE" : "CREATE";  // Check if we are creating or updating
+        this.props.dispatch(saveForm(this.props.action, actionType, id, attributes));
+
+        return false;
     }
 }
 

@@ -3,6 +3,10 @@ import TextInput from "./TextInput.jsx";
 
 
 class SelectInput extends React.Component {
+    static defaultProps = {
+        options: []
+    };
+
     render() {
         let { options, ...props } = this.props;
 
@@ -15,10 +19,6 @@ class SelectInput extends React.Component {
         );
     }
 }
-
-SelectInput.defaultProps = {
-    options: []
-};
 
 
 export default SelectInput;
