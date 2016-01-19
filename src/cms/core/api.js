@@ -19,7 +19,7 @@ API._nestIncludedAttributes = function (data, included) {
 };
 
 API._nestIncluded = function (response) {
-    if (!response.data || !response.included.length) {
+    if (!response.data || !response.included || !response.included.length) {
         return response;
     }
 
@@ -32,12 +32,31 @@ API._nestIncluded = function (response) {
     return response;
 };
 
-API.get = function (url, params) {
-    if (params) {
-        params = { params };
-    }
+API._request = function (url, options) {
+    return axios({
+        baseURL: API_URL,
+        headers: {
+            "Accept": "application/vnd.api+json, application/json",
+            //"Content-Type": "application/vnd.api+json",
+            "X-Requested-With": "XMLHttpRequest"
+        },
+        url,
+        ...options
+    }).then(response => response.data);
+};
 
-    return axios.get(API_URL + url, params).then(response => response.data);
+API.get = function (url, params) {
+    return API._request(url, {
+        method: "get",
+        params
+    });
+};
+
+API.put = function (url, data) {
+    return API._request(url, {
+        method: "put",
+        data: { data }
+    });
 };
 
 
@@ -58,12 +77,18 @@ API.listPages = function (page = 1, limit = 3) {
     });
 };
 
-
 API.getPage = function (id) {
     return API.get(`/page/${id}`, {
         include: "regions.content"
     }).then(API._nestIncluded);
 };
 
+API.savePage = function (id, attributes) {
+    return API.put(`/page/${id}`, attributes).then(API._nestIncluded).then(function (response) {
+        // Remove regions as they wont be auto-populated
+        delete response.data.attributes.regions;
+        return response;
+    });
+};
 
 export default API;

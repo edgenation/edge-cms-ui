@@ -17,11 +17,13 @@ export function fetchPage(id) {
 }
 
 export function updatePage(id, attributes) {
+
+    let { regions, ...attrs } = attributes;
+
     return [
-        { type: T.PAGE.UPDATE, id, attributes },
+        { type: T.PAGE.UPDATE, id, attrs },
         (dispatch) => {
-            // TODO: Update not get ;-)
-            API.getPage(id)
+            API.savePage(id, { attributes: attrs })
                 .then(function (response) {
                     dispatch(responseReceived(T.PAGE.UPDATE_SUCCESS, id, response));
                 });
@@ -29,4 +31,8 @@ export function updatePage(id, attributes) {
             //dispatch(responseReceived(T.PAGE.UPDATE_ERROR, id, response));
         }
     ];
+}
+
+export function createPage(attributes) {
+
 }

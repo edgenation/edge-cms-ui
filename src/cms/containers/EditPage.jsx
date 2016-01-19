@@ -3,6 +3,8 @@ import PageForm from "../components/PageForm.jsx";
 import ContentForm from "../components/ContentForm.jsx";
 import T from "../constants/ACTION_TYPES";
 
+import { createPage, updatePage } from "../actions/page";
+
 
 class EditPage extends React.Component {
     shouldComponentUpdate(nextProps) {
@@ -22,7 +24,7 @@ class EditPage extends React.Component {
                 <p>Page</p>
                 {id &&
                     <div>
-                        <PageForm action={T.PAGE} dispatch={this.props.dispatch} resource={this.props.state.page.get("page")} />
+                        <PageForm updater={updatePage} creator={createPage} dispatch={this.props.dispatch} resource={this.props.state.page.get("page")} />
 
                         {attributes.get("regions").map((region, index) =>
                             <div key={region.get("id")} className="panel panel-default">

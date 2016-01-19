@@ -6,12 +6,6 @@ const INITIAL_PAGE_STATE = Map();
 
 export function page(state = INITIAL_PAGE_STATE, action = {}) {
     switch (action.type) {
-        case T.PAGE.UPDATE:
-            return state.merge({
-                isFetching: true,
-                id: action.id
-            });
-
         case T.PAGE.FETCH:
             return state.merge({
                 isFetching: true,
@@ -20,9 +14,22 @@ export function page(state = INITIAL_PAGE_STATE, action = {}) {
             });
 
         case T.PAGE.FETCH_SUCCESS:
-        case T.PAGE.UPDATE_SUCCESS:
             return Map({
                 //isInValidated: true,
+                isFetching: false,
+                page: fromJS(action.response.data),
+                id: action.id,
+                lastUpdated: action.receivedAt
+            });
+
+        case T.PAGE.UPDATE:
+            return state.merge({
+                isFetching: true,
+                id: action.id
+            });
+
+        case T.PAGE.UPDATE_SUCCESS:
+            return state.mergeDeep({
                 isFetching: false,
                 page: fromJS(action.response.data),
                 id: action.id,

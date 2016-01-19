@@ -1,12 +1,12 @@
 import React from "react";
-import { saveForm } from "../actions/form";
 
 
 class BaseForm extends React.Component {
     static propTypes = {
-        action: React.PropTypes.object.isRequired,
         resource: React.PropTypes.object.isRequired,
-        dispatch: React.PropTypes.func.isRequired
+        dispatch: React.PropTypes.func.isRequired,
+        updater: React.PropTypes.func.isRequired,
+        creator: React.PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -39,7 +39,7 @@ class BaseForm extends React.Component {
 
             // TODO: Validate and check errors
             if (required) {
-                errors[name] = "BLUR!";
+                //errors[name] = "BLUR!";
             }
 
             return { attributes, errors };
@@ -53,18 +53,16 @@ class BaseForm extends React.Component {
 
         let hasErrors = Object.keys(errors).length;
 
-        console.log("TODO: Submit form");
-        console.log(this.state);
-
         // TODO: Check for errors
         if (hasErrors) {
             return;
         }
 
-        let actionType = id ? "UPDATE" : "CREATE";  // Check if we are creating or updating
-        this.props.dispatch(saveForm(this.props.action, actionType, id, attributes));
-
-        return false;
+        if (id) {
+            this.props.dispatch(this.props.updater(id, attributes));
+        } else {
+            this.props.dispatch(this.props.creator(id, attributes));
+        }
     }
 }
 
