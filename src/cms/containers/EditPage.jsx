@@ -9,7 +9,6 @@ class EditPage extends React.Component {
         return this.props.state.page !== nextProps.state.page;
     }
 
-
     isLoading() {
         return this.props.state.page.get("isFetching");
     }
@@ -26,14 +25,14 @@ class EditPage extends React.Component {
                         <PageForm action={T.PAGE} dispatch={this.props.dispatch} resource={this.props.state.page.get("page")} />
 
                         {attributes.get("regions").map((region, index) =>
-                            <div key={index} className="panel panel-default">
+                            <div key={region.get("id")} className="panel panel-default">
                                 <div className="panel-heading">
                                     <h2 className="panel-title" title={region.get("id")}>{region.getIn(["attributes","name"])}</h2>
                                 </div>
 
                                 <div className="panel-body">
                                     {region.getIn(["attributes", "content"]).map((content, index) =>
-                                        <ContentForm key={index} dispatch={this.props.dispatch} resource={content}/>
+                                        <ContentForm key={content.get("id")} dispatch={this.props.dispatch} resource={content}/>
                                     )}
                                 </div>
                             </div>
