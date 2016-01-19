@@ -26,7 +26,7 @@ class Pages extends React.Component {
                 }
 
                 {pagination &&
-                    <Pagination name="pages" pagination={pagination} current={data.get("page")}/>
+                    <Pagination name="pages" pagination={pagination} />
                 }
             </div>
         )

@@ -5,7 +5,7 @@ import Link from "./Link.jsx";
 
 class Pagination extends React.Component {
     renderLinks() {
-        let isCurrent = (index) => this.props.current === index + 1;
+        let isCurrent = (index) => this.props.pagination.get("page") === index + 1;
 
         return Array(this.props.pagination.get("pages")).fill(1).map((page, index) =>
             <li key={index} className={classNames({active: isCurrent(index)})}>
@@ -21,7 +21,7 @@ class Pagination extends React.Component {
 
     renderPreviousLink() {
         if (this.props.pagination.get("page") > 1) {
-            let prevPage = this.props.current - 1;
+            let prevPage = this.props.pagination.get("page") - 1;
 
             return (
                 <li>
@@ -41,7 +41,7 @@ class Pagination extends React.Component {
 
     renderNextLink() {
         if (this.props.pagination.get("page") < this.props.pagination.get("pages")) {
-            let nextPage = this.props.current + 1;
+            let nextPage = this.props.pagination.get("page") + 1;
 
             return (
                 <li>
