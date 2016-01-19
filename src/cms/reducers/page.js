@@ -18,11 +18,11 @@ export function page(state = INITIAL_PAGE_STATE, action = {}) {
                 //isInValidated: true,
                 isFetching: false,
                 page: fromJS(action.response.data),
-                id: action.id,
                 lastUpdated: action.receivedAt
             });
 
         case T.PAGE.UPDATE:
+        case T.PAGE_CONTENT.UPDATE:
             return state.merge({
                 isFetching: true,
                 id: action.id
@@ -32,7 +32,16 @@ export function page(state = INITIAL_PAGE_STATE, action = {}) {
             return state.mergeDeep({
                 isFetching: false,
                 page: fromJS(action.response.data),
-                id: action.id,
+                lastUpdated: action.receivedAt
+            });
+
+        case T.PAGE_CONTENT.UPDATE_SUCCESS:
+            // TODO: Find action.id in state.page.regions[].content[]
+            // TODO: Merge in the action.response.data
+            // TODO: Set update and fetched
+            console.log(action.response.data);
+            return state.merge({
+                isFetching: false,
                 lastUpdated: action.receivedAt
             });
 

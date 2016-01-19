@@ -91,4 +91,9 @@ API.savePage = function (id, attributes) {
     });
 };
 
+
+API.saveContent = function (id, attributes) {
+    return API.put(`/content/${id}`, attributes).then(API._nestIncluded);
+};
+
 export default API;

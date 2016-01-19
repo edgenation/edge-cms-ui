@@ -15,5 +15,9 @@ export default {
     PAGES: {
         FETCH: "PAGES/FETCH",
         FETCH_SUCCESS: "PAGES/FETCH_SUCCESS"
+    },
+    PAGE_CONTENT: {
+        UPDATE: "PAGE_CONTENT/UPDATE",
+        UPDATE_SUCCESS: "PAGE_CONTENT/UPDATE_SUCCESS"
     }
 };
