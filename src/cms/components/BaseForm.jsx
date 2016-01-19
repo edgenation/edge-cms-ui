@@ -19,6 +19,14 @@ class BaseForm extends React.Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            id: nextProps.resource.get("id"),
+            attributes: nextProps.resource.get("attributes").toJS(),
+            errors: {}
+        });
+    }
+
     handleInputChange(e) {
         // Update the state with the new value
         this.setState(function (previousState) {
