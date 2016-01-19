@@ -6,7 +6,9 @@ import FormGroup from "./FormGroup.jsx";
 
 class PageForm extends BaseForm {
     render() {
-        const { id, attributes, errors } = this.state;
+        let { id, attributes, errors } = this.state;
+
+        attributes = attributes.toJS();
 
         // TODO: Get a list of templates from somewhere!
         const templates = ["default"];

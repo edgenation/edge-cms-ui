@@ -14,18 +14,18 @@ class BaseForm extends React.Component {
 
         this.state = {
             id: this.props.resource.get("id"),
-            attributes: this.props.resource.get("attributes").toJS(),
+            attributes: this.props.resource.get("attributes"),
             errors: {}
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            id: nextProps.resource.get("id"),
-            attributes: nextProps.resource.get("attributes").toJS(),
-            errors: {}
-        });
-    }
+    //componentWillReceiveProps(nextProps) {
+    //    this.setState({
+    //        id: nextProps.resource.get("id"),
+    //        attributes: nextProps.resource.get("attributes"),
+    //        errors: {}
+    //    });
+    //}
 
     handleInputChange(e) {
         // Update the state with the new value
@@ -35,7 +35,7 @@ class BaseForm extends React.Component {
             let errors = previousState.errors;
 
             // Update attribute
-            attributes[name] = value;
+            attributes = attributes.set(name, value);
 
             // TODO: Validate and check errors
             if (required) {
@@ -59,9 +59,9 @@ class BaseForm extends React.Component {
         }
 
         if (id) {
-            this.props.dispatch(this.props.updater(id, attributes));
+            this.props.dispatch(this.props.updater(id, attributes.toJS()));
         } else {
-            this.props.dispatch(this.props.creator(id, attributes));
+            this.props.dispatch(this.props.creator(id, attributes.toJS()));
         }
     }
 }

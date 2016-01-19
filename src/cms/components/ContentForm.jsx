@@ -6,7 +6,8 @@ import FormGroup from "./FormGroup.jsx";
 
 class ContentForm extends BaseForm {
     render() {
-        const { id, attributes, errors } = this.state;
+        let { id, attributes, errors } = this.state;
+        attributes = attributes.toJS();
 
         let hasErrors = Object.keys(errors).length;
 
