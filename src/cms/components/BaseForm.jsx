@@ -3,6 +3,7 @@ import React from "react";
 
 class BaseForm extends React.Component {
     static propTypes = {
+        parent: React.PropTypes.string,
         resource: React.PropTypes.object.isRequired,
         dispatch: React.PropTypes.func.isRequired,
         updater: React.PropTypes.func,
@@ -62,7 +63,7 @@ class BaseForm extends React.Component {
         if (id) {
             this.props.dispatch(this.props.updater(id, attributes.toJS()));
         } else {
-            this.props.dispatch(this.props.creator(id, attributes.toJS()));
+            this.props.dispatch(this.props.creator(attributes.toJS(), this.props.parent));
         }
     }
 

@@ -17,8 +17,18 @@ export function updatePageContent(id, attributes) {
     ];
 }
 
-export function createPageContent(attributes) {
-    // TODO: Create page content!
+export function createPageContent(attributes, regionId) {
+    return [
+        { type: T.PAGE_CONTENT.CREATE, regionId, attributes },
+        (dispatch) => {
+            API.createContent(regionId, attributes)
+                .then(function (response) {
+                    dispatch(responseReceived(T.PAGE_CONTENT.CREATE_SUCCESS, regionId, response));
+                });
+            // TODO: Catch errors
+            //dispatch(responseReceived(T.PAGE.UPDATE_ERROR, id, response));
+        }
+    ];
 }
 
 

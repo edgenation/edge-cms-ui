@@ -30,6 +30,7 @@ export function page(state = INITIAL_PAGE_STATE, action = {}) {
             });
 
         case T.PAGE.UPDATE:
+        case T.PAGE_CONTENT.CREATE:
         case T.PAGE_CONTENT.UPDATE:
         case T.PAGE_CONTENT.DELETE:
             return state.merge({
@@ -57,6 +58,24 @@ export function page(state = INITIAL_PAGE_STATE, action = {}) {
                 isFetching: false,
                 lastUpdated: action.receivedAt
             });
+
+        case T.PAGE_CONTENT.CREATE_SUCCESS:
+            // Add the new content to our region
+            return state.updateIn(["page", "attributes", "regions"], function (regions) {
+                return regions.map(function (region) {
+                    if (region.get("id") === action.id) {
+                        return region.updateIn(["attributes", "content"], function (content) {
+                            return content.push(fromJS(action.response.data));
+                        })
+                    }
+
+                    return region;
+                });
+            }).merge({
+                isFetching: false,
+                lastUpdated: action.receivedAt
+            });
+
 
         case T.PAGE_CONTENT.DELETE_SUCCESS:
             // Remove the content from page regions if they have it

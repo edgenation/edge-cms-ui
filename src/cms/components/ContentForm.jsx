@@ -10,7 +10,7 @@ class ContentForm extends BaseForm {
         attributes = attributes.toJS();
 
         // TODO: Get a list of content types from somewhere!
-        const contentTypes = ["markdown", "html", "image"];
+        const contentTypes = ["", "markdown", "html", "image"];
 
         let hasErrors = Object.keys(errors).length;
 
@@ -26,7 +26,7 @@ class ContentForm extends BaseForm {
                     <div className="panel-body">
                         <FormGroup error={errors.type}>
                             <label htmlFor={`content-type-${id}`}>Type</label>
-                            <SelectInput id={`content-type-${id}`} name="type" onChange={this.handleInputChange.bind(this)} value={attributes.type} options={contentTypes} />
+                            <SelectInput id={`content-type-${id}`} name="type" onChange={this.handleInputChange.bind(this)} value={attributes.type} options={contentTypes} required />
                         </FormGroup>
 
                         {attributes.type === "markdown" &&
@@ -64,10 +64,12 @@ class ContentForm extends BaseForm {
                             Submit
                         </button>
 
-                        <button className="btn btn-danger" type="button" onClick={this.handleDelete.bind(this)}>
-                            <span className="glyphicon glyphicon-remove" aria-hidden="true"/>
-                            Delete
-                        </button>
+                        {id &&
+                            <button className="btn btn-danger" type="button" onClick={this.handleDelete.bind(this)}>
+                                <span className="glyphicon glyphicon-remove" aria-hidden="true"/>
+                                Delete
+                            </button>
+                        }
                     </div>
 
                 </div>

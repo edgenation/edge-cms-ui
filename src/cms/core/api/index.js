@@ -56,6 +56,13 @@ API.get = function (url, params) {
 API.put = function (url, data) {
     return API._request(url, {
         method: "put",
+        data
+    });
+};
+
+API.post = function (url, data) {
+    return API._request(url, {
+        method: "post",
         data: { data }
     });
 };
@@ -69,7 +76,7 @@ API.delete = function (url, data) {
 
 
 API.saveContent = function (id, attributes) {
-    return API.put(`/content/${id}`, attributes).then(API._nestIncluded);
+    return API.put(`/content/${id}`, { attributes });
 };
 
 API.deleteContent = function (id) {
@@ -84,10 +91,16 @@ API.deleteContent = function (id) {
     });
 };
 
+API.createContent = function (regionId, attributes) {
+    return API.post("/content", { attributes }).then(function (response) {
+        // Now link to the region!
+        return API.put(`/region/${regionId}/content`, { content: response.data.id });
+    });
+};
 
 // Find all the region id's which have this given content item
 API.findRegionsForContent = function (id) {
-    return API.get(`/region`, {
+    return API.get("/region", {
         limit: false,
         fields: "id",
         "filter[content]": id

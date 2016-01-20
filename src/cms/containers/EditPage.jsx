@@ -1,4 +1,5 @@
 import React from "react";
+import { Map } from "immutable";
 import PageForm from "../components/PageForm.jsx";
 import ContentForm from "../components/ContentForm.jsx";
 import T from "../constants/ACTION_TYPES";
@@ -20,6 +21,8 @@ class EditPage extends React.Component {
         const id = this.props.state.page.getIn(["page", "id"]);
         const attributes = this.props.state.page.getIn(["page", "attributes"]);
 
+        const newContent = Map({ attributes: Map({ data: Map() }) });
+
         return (
             <div style={{ opacity: this.isLoading() ? 0.5 : 1 }}>
                 <p>Page</p>
@@ -35,8 +38,10 @@ class EditPage extends React.Component {
 
                                 <div className="panel-body">
                                     {region.getIn(["attributes", "content"]).map((content, index) =>
-                                        <ContentForm key={content.get("id")} updater={updatePageContent} creator={createPageContent} deleter={deletePageContent} dispatch={this.props.dispatch} resource={content}/>
+                                        <ContentForm key={content.get("id")} updater={updatePageContent} deleter={deletePageContent} dispatch={this.props.dispatch} resource={content}/>
                                     )}
+
+                                    <ContentForm parent={region.get("id")} creator={createPageContent} dispatch={this.props.dispatch} resource={newContent}/>
                                 </div>
                             </div>
                         )}
