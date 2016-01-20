@@ -7,7 +7,7 @@ export function fetchPage(id) {
     return [
         { type: T.PAGE.FETCH, id },
         (dispatch) => {
-            PageAPI.getPage(id)
+            PageAPI.fetch(id)
                 .then(function (response) {
                     dispatch(responseReceived(T.PAGE.FETCH_SUCCESS, id, response));
                 });
@@ -22,7 +22,7 @@ export function updatePage(id, attributes) {
     return [
         { type: T.PAGE.UPDATE, id, attrs },
         (dispatch) => {
-            PageAPI.savePage(id, { attributes: attrs })
+            PageAPI.update(id, { attributes: attrs })
                 .then(function (response) {
                     dispatch(responseReceived(T.PAGE.UPDATE_SUCCESS, id, response));
                 });

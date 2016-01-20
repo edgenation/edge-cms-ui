@@ -1,7 +1,7 @@
 import API from "./index";
 
 
-export function listPages(page = 1, limit = 3) {
+export function list(page = 1, limit = 3) {
     let offset = (page - 1) * limit;
 
     return API.get("/page", {
@@ -19,14 +19,14 @@ export function listPages(page = 1, limit = 3) {
 }
 
 
-export function getPage(id) {
+export function fetch(id) {
     return API.get(`/page/${id}`, {
         include: "regions.content"
     }).then(API._nestIncluded);
 }
 
 
-export function savePage(id, attributes) {
+export function update(id, attributes) {
     return API.put(`/page/${id}`, attributes).then(API._nestIncluded).then(function (response) {
         // Remove regions as they wont be auto-populated
         delete response.data.attributes.regions;

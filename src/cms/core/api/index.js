@@ -75,36 +75,4 @@ API.delete = function (url, data) {
 };
 
 
-API.saveContent = function (id, attributes) {
-    return API.put(`/content/${id}`, { attributes });
-};
-
-API.deleteContent = function (id) {
-    return API.findRegionsForContent(id).then(function(regionIds) {
-        // Remove the content from any region that has it
-        let regionPromises = regionIds.map(regionId => API.delete(`/region/${regionId}/content`, { content: id }));
-
-        return Promise.all(regionPromises).then(function () {
-            // TODO: Delete the actual content
-            return id;
-        });
-    });
-};
-
-API.createContent = function (regionId, attributes) {
-    return API.post("/content", { attributes }).then(function (response) {
-        // Now link to the region!
-        return API.put(`/region/${regionId}/content`, { content: response.data.id });
-    });
-};
-
-// Find all the region id's which have this given content item
-API.findRegionsForContent = function (id) {
-    return API.get("/region", {
-        limit: false,
-        fields: "id",
-        "filter[content]": id
-    }).then((response) => response.data.map((data) => data.id));
-};
-
 export default API;

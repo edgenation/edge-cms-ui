@@ -1,4 +1,4 @@
-import API from "../core/api"
+import * as PageAPI from "../core/api/page";
 import T from "../constants/ACTION_TYPES";
 import { responseReceived } from "./api";
 
@@ -9,7 +9,7 @@ export function fetchPages(page = 1, limit = 3) {
     return [
         { type: T.PAGES.FETCH, page },
         (dispatch) => {
-            API.listPages(page, limit)
+            PageAPI.list(page, limit)
                 .then(function (response) {
                     dispatch(responseReceived(T.PAGES.FETCH_SUCCESS, page, response));
                 });
