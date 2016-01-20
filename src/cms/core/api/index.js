@@ -96,4 +96,14 @@ API.saveContent = function (id, attributes) {
     return API.put(`/content/${id}`, attributes).then(API._nestIncluded);
 };
 
+
+// Find all the regions which have this given content item
+API.findRegionsForContent = function (id) {
+    return API.get(`/region/${id}`, {
+        limit: false,
+        fields: "id",
+        "filter[content]": id
+    });
+};
+
 export default API;
