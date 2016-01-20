@@ -36,7 +36,7 @@ class BaseForm extends React.Component {
             let errors = previousState.errors;
 
             // Update attribute
-            attributes = attributes.set(name, value);
+            attributes = attributes.setIn(name.split("."), value);
 
             // TODO: Validate and check errors
             if (required) {

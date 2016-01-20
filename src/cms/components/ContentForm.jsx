@@ -9,6 +9,9 @@ class ContentForm extends BaseForm {
         let { id, attributes, errors } = this.state;
         attributes = attributes.toJS();
 
+        // TODO: Get a list of content types from somewhere!
+        const contentTypes = ["markdown", "html", "image"];
+
         let hasErrors = Object.keys(errors).length;
 
         return (
@@ -23,31 +26,31 @@ class ContentForm extends BaseForm {
                     <div className="panel-body">
                         <FormGroup error={errors.type}>
                             <label htmlFor={`content-type-${id}`}>Type</label>
-                            <TextInput id={`content-type-${id}`} name="type" value={attributes.type} onChange={this.handleInputChange.bind(this)} autoComplete="off" required />
+                            <SelectInput id={`content-type-${id}`} name="type" onChange={this.handleInputChange.bind(this)} value={attributes.type} options={contentTypes} />
                         </FormGroup>
 
-                        {(attributes.type === "markdown" || attributes.data.markdown) &&
+                        {attributes.type === "markdown" &&
                             <FormGroup error={errors.type}>
-                                <label htmlFor={`content-markdown-${id}`}>Content</label>
+                                <label htmlFor={`content-markdown-${id}`}>Markdown</label>
                                 <textarea className="form-control" id={`content-markdown-${id}`} name="data.markdown" value={attributes.data.markdown} onChange={this.handleInputChange.bind(this)} required />
                             </FormGroup>
                         }
 
-                        {(attributes.type === "html" || attributes.data.html) &&
+                        {attributes.type === "html" &&
                             <FormGroup error={errors.type}>
-                                <label htmlFor={`content-html-${id}`}>Content</label>
+                                <label htmlFor={`content-html-${id}`}>HTML</label>
                                 <textarea className="form-control" id={`content-html-${id}`} name="data.html" value={attributes.data.html} onChange={this.handleInputChange.bind(this)} required />
                             </FormGroup>
                         }
 
-                        {(attributes.type === "image" || attributes.data.src) &&
+                        {attributes.type === "image" &&
                             <FormGroup error={errors.type}>
                                 <label htmlFor={`content-src-${id}`}>Src</label>
                                 <TextInput id={`content-src-${id}`} name="data.src" value={attributes.data.src} onChange={this.handleInputChange.bind(this)} autoComplete="off" required />
                             </FormGroup>
                         }
 
-                        {(attributes.type === "image" || attributes.data.alt) &&
+                        {attributes.type === "image" &&
                             <FormGroup error={errors.type}>
                                 <label htmlFor={`content-alt-${id}`}>Alt</label>
                                 <TextInput id={`content-alt-${id}`} name="data.alt" value={attributes.data.alt} onChange={this.handleInputChange.bind(this)} autoComplete="off" />
