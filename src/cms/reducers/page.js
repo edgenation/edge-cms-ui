@@ -36,11 +36,24 @@ export function page(state = INITIAL_PAGE_STATE, action = {}) {
             });
 
         case T.PAGE_CONTENT.UPDATE_SUCCESS:
-            // TODO: Find action.id in state.page.regions[].content[]
-            // TODO: Merge in the action.response.data
-            // TODO: Set update and fetched
-            console.log(action.response.data);
-            return state.merge({
+            return state.updateIn(["page", "attributes", "regions"], function (regions) {
+                let regionIndex = -1;
+                let contentIndex = -1;
+                regions.forEach(function (region, rIndex) {
+                    let cIndex = region.getIn(["attributes", "content"]).findIndex(content => content.get("id") === action.id);
+
+                    if (cIndex !== -1) {
+                        contentIndex = cIndex;
+                        regionIndex = rIndex;
+                    }
+                });
+
+                if (regionIndex !== -1 && contentIndex !== -1) {
+                    return regions.setIn([regionIndex, "attributes", "content", contentIndex], fromJS(action.response.data));
+                }
+
+                return regions;
+            }).merge({
                 isFetching: false,
                 lastUpdated: action.receivedAt
             });
