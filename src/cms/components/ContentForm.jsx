@@ -56,8 +56,15 @@ class ContentForm extends BaseForm {
                     </div>
 
                     <div className="panel-footer">
-                        <button className="btn btn-primary" type="submit" disabled={hasErrors}>Submit</button>
-                        <button className="btn btn-danger" type="button">Delete</button>
+                        <button className="btn btn-primary" type="submit" disabled={hasErrors}>
+                            <span className="glyphicon glyphicon-floppy-disk" aria-hidden="true"/>
+                            Submit
+                        </button>
+
+                        <button className="btn btn-danger" type="button" onClick={this.handleDelete.bind(this)}>
+                            <span className="glyphicon glyphicon-remove" aria-hidden="true"/>
+                            Delete
+                        </button>
                     </div>
 
                 </div>

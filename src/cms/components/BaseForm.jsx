@@ -5,8 +5,9 @@ class BaseForm extends React.Component {
     static propTypes = {
         resource: React.PropTypes.object.isRequired,
         dispatch: React.PropTypes.func.isRequired,
-        updater: React.PropTypes.func.isRequired,
-        creator: React.PropTypes.func.isRequired
+        updater: React.PropTypes.func,
+        creator: React.PropTypes.func,
+        deleter: React.PropTypes.func
     };
 
     constructor(props) {
@@ -63,6 +64,12 @@ class BaseForm extends React.Component {
         } else {
             this.props.dispatch(this.props.creator(id, attributes.toJS()));
         }
+    }
+
+    handleDelete(e) {
+        e.preventDefault();
+        // TODO: Ask for confirmation?
+        this.props.dispatch(this.props.deleter(this.state.id));
     }
 }
 

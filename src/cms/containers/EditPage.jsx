@@ -4,7 +4,7 @@ import ContentForm from "../components/ContentForm.jsx";
 import T from "../constants/ACTION_TYPES";
 
 import { createPage, updatePage } from "../actions/page";
-import { createPageContent, updatePageContent } from "../actions/pageContent";
+import { createPageContent, updatePageContent, deletePageContent } from "../actions/pageContent";
 
 
 class EditPage extends React.Component {
@@ -35,7 +35,7 @@ class EditPage extends React.Component {
 
                                 <div className="panel-body">
                                     {region.getIn(["attributes", "content"]).map((content, index) =>
-                                        <ContentForm key={content.get("id")} updater={updatePageContent} creator={createPageContent} dispatch={this.props.dispatch} resource={content}/>
+                                        <ContentForm key={content.get("id")} updater={updatePageContent} creator={createPageContent} deleter={deletePageContent} dispatch={this.props.dispatch} resource={content}/>
                                     )}
                                 </div>
                             </div>

@@ -41,7 +41,10 @@ class PageForm extends BaseForm {
                     </div>
 
                     <div className="panel-footer">
-                        <button className="btn btn-primary" type="submit" disabled={hasErrors}>Submit</button>
+                        <button className="btn btn-primary" type="submit" disabled={hasErrors}>
+                            <span className="glyphicon glyphicon-floppy-disk" aria-hidden="true"/>
+                            Submit
+                        </button>
                     </div>
                 </div>
 

@@ -18,5 +18,13 @@ export function updatePageContent(id, attributes) {
 }
 
 export function createPageContent(attributes) {
+    // TODO: Create page content!
+}
 
+
+export function deletePageContent(id) {
+    // TODO: Delete page content!
+    console.log("deletePageContent", id);
+
+    // TODO: Remove all references to it!
 }
