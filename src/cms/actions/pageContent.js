@@ -23,8 +23,15 @@ export function createPageContent(attributes) {
 
 
 export function deletePageContent(id) {
-    // TODO: Delete page content!
-    console.log("deletePageContent", id);
-
-    // TODO: Remove all references to it!
+    return [
+        { type: T.PAGE_CONTENT.DELETE, id },
+        (dispatch) => {
+            API.deleteContent(id)
+                .then(function (response) {
+                    dispatch(responseReceived(T.PAGE_CONTENT.DELETE_SUCCESS, id, response));
+                });
+            // TODO: Catch errors
+            //dispatch(responseReceived(T.PAGE.UPDATE_ERROR, id, response));
+        }
+    ];
 }

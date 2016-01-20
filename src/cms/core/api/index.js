@@ -45,6 +45,7 @@ API._request = function (url, options) {
     }).then(response => response.data);
 };
 
+
 API.get = function (url, params) {
     return API._request(url, {
         method: "get",
@@ -59,35 +60,10 @@ API.put = function (url, data) {
     });
 };
 
-
-API.listPages = function (page = 1, limit = 3) {
-    let offset = (page - 1) * limit;
-
-    return API.get("/page", {
-        offset,
-        limit,
-        fields: "title,url"
-    }).then(function (response) {
-        let pagination = response.meta.page;
-
-        pagination.page = Math.floor(pagination.offset / pagination.limit) + 1 || 1;
-        pagination.pages = Math.ceil(pagination.total / pagination.limit);
-
-        return response;
-    });
-};
-
-API.getPage = function (id) {
-    return API.get(`/page/${id}`, {
-        include: "regions.content"
-    }).then(API._nestIncluded);
-};
-
-API.savePage = function (id, attributes) {
-    return API.put(`/page/${id}`, attributes).then(API._nestIncluded).then(function (response) {
-        // Remove regions as they wont be auto-populated
-        delete response.data.attributes.regions;
-        return response;
+API.delete = function (url, data) {
+    return API._request(url, {
+        method: "delete",
+        data
     });
 };
 
@@ -96,14 +72,26 @@ API.saveContent = function (id, attributes) {
     return API.put(`/content/${id}`, attributes).then(API._nestIncluded);
 };
 
+API.deleteContent = function (id) {
+    return API.findRegionsForContent(id).then(function(regionIds) {
+        // Remove the content from any region that has it
+        let regionPromises = regionIds.map(regionId => API.delete(`/region/${regionId}/content`, { content: id }));
 
-// Find all the regions which have this given content item
+        return Promise.all(regionPromises).then(function () {
+            // TODO: Delete the actual content
+            return id;
+        });
+    });
+};
+
+
+// Find all the region id's which have this given content item
 API.findRegionsForContent = function (id) {
-    return API.get(`/region/${id}`, {
+    return API.get(`/region`, {
         limit: false,
         fields: "id",
         "filter[content]": id
-    });
+    }).then((response) => response.data.map((data) => data.id));
 };
 
 export default API;

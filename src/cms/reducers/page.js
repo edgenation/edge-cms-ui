@@ -4,6 +4,14 @@ import T from "../constants/ACTION_TYPES";
 
 const INITIAL_PAGE_STATE = Map();
 
+
+function updatePageRegionContents(state, fn) {
+    return state.updateIn(["page", "attributes", "regions"], function (regions) {
+        return regions.map(region => region.updateIn(["attributes", "content"], fn));
+    });
+}
+
+
 export function page(state = INITIAL_PAGE_STATE, action = {}) {
     switch (action.type) {
         case T.PAGE.FETCH:
@@ -23,6 +31,7 @@ export function page(state = INITIAL_PAGE_STATE, action = {}) {
 
         case T.PAGE.UPDATE:
         case T.PAGE_CONTENT.UPDATE:
+        case T.PAGE_CONTENT.DELETE:
             return state.merge({
                 isFetching: true,
                 id: action.id
@@ -36,29 +45,29 @@ export function page(state = INITIAL_PAGE_STATE, action = {}) {
             });
 
         case T.PAGE_CONTENT.UPDATE_SUCCESS:
-            return state.updateIn(["page", "attributes", "regions"], function (regions) {
-                let regionIndex = -1;
-                let contentIndex = -1;
-                regions.forEach(function (region, rIndex) {
-                    let cIndex = region.getIn(["attributes", "content"]).findIndex(content => content.get("id") === action.id);
+            // Update any page regions that have this content in them
+            return updatePageRegionContents(state, function (contents) {
+                let index = contents.findIndex(content => content.get("id") === action.id);
 
-                    if (cIndex !== -1) {
-                        contentIndex = cIndex;
-                        regionIndex = rIndex;
-                    }
-                });
-
-                if (regionIndex !== -1 && contentIndex !== -1) {
-                    return regions.setIn([regionIndex, "attributes", "content", contentIndex], fromJS(action.response.data));
+                if (index !== -1) {
+                    return contents.set(index, fromJS(action.response.data));
                 }
+                return contents;
+            }).merge({
+                isFetching: false,
+                lastUpdated: action.receivedAt
+            });
 
-                return regions;
+        case T.PAGE_CONTENT.DELETE_SUCCESS:
+            // Remove the content from page regions if they have it
+            return updatePageRegionContents(state, function (contents) {
+                return contents.filter(content => content.get("id") !== action.id);
             }).merge({
                 isFetching: false,
                 lastUpdated: action.receivedAt
             });
 
         default:
-            return state
+            return state;
     }
 }
