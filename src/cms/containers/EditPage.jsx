@@ -1,5 +1,6 @@
 import React from "react";
 import { Map } from "immutable";
+import ImmutablePropTypes from "react-immutable-proptypes";
 import PageForm from "../components/PageForm.jsx";
 import ContentForm from "../components/ContentForm.jsx";
 import T from "../constants/ACTION_TYPES";
@@ -9,6 +10,12 @@ import { createPageContent, updatePageContent, deletePageContent } from "../acti
 
 
 class EditPage extends React.Component {
+    static propTypes = {
+        state: React.PropTypes.shape({
+            page: ImmutablePropTypes.map.isRequired
+        }).isRequired
+    };
+
     shouldComponentUpdate(nextProps) {
         return this.props.state.page !== nextProps.state.page;
     }

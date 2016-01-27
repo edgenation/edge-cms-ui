@@ -8,3 +8,4 @@ window.Redux = require("redux");
 window.uniloc = require("uniloc");
 window.thunk = require("redux-thunk");
 window.multi = require("redux-multi");
+window.ImmutablePropTypes = require("react-immutable-proptypes");

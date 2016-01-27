@@ -39,7 +39,8 @@ gulp.task("js", () => {
                     "axios": "axios",
                     "uniloc": "uniloc",
                     "redux-thunk": "thunk",
-                    "redux-multi": "multi"
+                    "redux-multi": "multi",
+                    "react-immutable-proptypes": "ImmutablePropTypes"
                 },
                 filePattern: /\.jsx?$/
             })

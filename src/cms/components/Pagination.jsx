@@ -1,9 +1,15 @@
 import React from "react";
 import classNames from "classnames";
+import ImmutablePropTypes from "react-immutable-proptypes";
 import Link from "./Link.jsx";
 
 
 class Pagination extends React.Component {
+    static propTypes = {
+        name: React.PropTypes.string.isRequired,
+        pagination: ImmutablePropTypes.map.isRequired
+    };
+
     renderLinks() {
         let isCurrent = (index) => this.props.pagination.get("page") === index + 1;
 

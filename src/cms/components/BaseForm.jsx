@@ -1,10 +1,11 @@
 import React from "react";
+import ImmutablePropTypes from "react-immutable-proptypes";
 
 
 class BaseForm extends React.Component {
     static propTypes = {
         parent: React.PropTypes.string,
-        resource: React.PropTypes.object.isRequired,
+        resource: ImmutablePropTypes.map.isRequired,
         dispatch: React.PropTypes.func.isRequired,
         updater: React.PropTypes.func,
         creator: React.PropTypes.func,

@@ -1,9 +1,16 @@
 import React from "react";
+import ImmutablePropTypes from "react-immutable-proptypes";
 import PageList from "../components/PageList.jsx";
 import Pagination from "../components/Pagination.jsx";
 
 
 class Pages extends React.Component {
+    static propTypes = {
+        state: React.PropTypes.shape({
+            pages: ImmutablePropTypes.map.isRequired
+        }).isRequired
+    };
+
     shouldComponentUpdate(nextProps) {
         return this.props.state.pages !== nextProps.state.pages;
     }
