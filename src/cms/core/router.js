@@ -1,3 +1,6 @@
+import uniloc from "uniloc";
+
+
 class Router {
     constructor() {
         this._routes = {};

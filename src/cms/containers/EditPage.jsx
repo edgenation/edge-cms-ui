@@ -3,7 +3,6 @@ import { Map } from "immutable";
 import ImmutablePropTypes from "react-immutable-proptypes";
 import PageForm from "../components/PageForm.jsx";
 import ContentForm from "../components/ContentForm.jsx";
-import T from "../constants/ACTION_TYPES";
 
 import { createPage, updatePage } from "../actions/page";
 import { createPageContent, updatePageContent, deletePageContent } from "../actions/pageContent";
@@ -37,14 +36,14 @@ class EditPage extends React.Component {
                     <div>
                         <PageForm updater={updatePage} creator={createPage} dispatch={this.props.dispatch} resource={this.props.state.page.get("page")} />
 
-                        {attributes.get("regions").map((region, index) =>
+                        {attributes.get("regions").map(region =>
                             <div key={region.get("id")} className="panel panel-default">
                                 <div className="panel-heading">
                                     <h2 className="panel-title" title={region.get("id")}>{region.getIn(["attributes","name"])}</h2>
                                 </div>
 
                                 <div className="panel-body">
-                                    {region.getIn(["attributes", "content"]).map((content, index) =>
+                                    {region.getIn(["attributes", "content"]).map(content =>
                                         <ContentForm key={content.get("id")} updater={updatePageContent} deleter={deletePageContent} dispatch={this.props.dispatch} resource={content}/>
                                     )}
 

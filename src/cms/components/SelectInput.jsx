@@ -1,5 +1,4 @@
 import React from "react";
-import TextInput from "./TextInput.jsx";
 
 
 class SelectInput extends React.Component {

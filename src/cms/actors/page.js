@@ -1,11 +1,8 @@
 import { fetchPage } from "../actions/page";
 
 
-const INVALIDATE_TIME = 2000;
-
 function shouldFetch(location, data) {
     let lastUpdated = data.get("lastUpdated");
-    let isInValidated = data.get("isInValidated");
     let dataId = data.getIn(["page", "id"]);
     let urlId = location.options.id;
 
@@ -18,12 +15,6 @@ function shouldFetch(location, data) {
     if (dataId !== urlId) {
         return true;
     }
-
-    // Check data invalidation
-    //if (isInValidated) {
-    //    // Check for out of date or not
-    //    return Date.now() > lastUpdated + INVALIDATE_TIME;
-    //}
 
     return false;
 }

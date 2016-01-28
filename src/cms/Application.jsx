@@ -1,7 +1,6 @@
 import React from "react";
 
 import ApplicationLayout from "./components/ApplicationLayout.jsx"
-import Router from "./core/router"
 
 
 class Application extends React.Component {

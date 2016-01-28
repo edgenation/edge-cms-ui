@@ -19,8 +19,7 @@ export function remove(id) {
 
         return Promise.all(regionPromises).then(function () {
             // TODO: Delete the actual content
-             return ContentAPI.remove(id);
-            return id;
+            return ContentAPI.remove(id);
         });
     });
 }

@@ -15,14 +15,3 @@ export function navigationComplete() {
     };
 
 }
-
-// Change the url via code
-export function start(name, options) {
-    // TODO:
-    return (dispatch, getState) => {
-        //const currentURI = window.location.hash.substr(1);
-        //const route = Router.getRoute(currentURI);
-        //const newURI = Router.generate(name, options)
-
-    };
-}

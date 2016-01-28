@@ -32,6 +32,6 @@ export function updatePage(id, attributes) {
     ];
 }
 
-export function createPage(attributes) {
+export function createPage() {
 
 }
