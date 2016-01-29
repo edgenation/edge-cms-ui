@@ -1,5 +1,7 @@
 import gulp from "gulp";
 
-gulp.task("dev", ["html", "vendor", "js"]);
+gulp.task("build", ["html", "js"]);
 
-gulp.task("default", ["dev"]);
+gulp.task("dev", ["html", "server"]);
+
+gulp.task("default", ["build"]);
