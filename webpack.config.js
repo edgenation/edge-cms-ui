@@ -1,6 +1,8 @@
 const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
+const VendorChunkPlugin = require("webpack-vendor-chunk-plugin");
+const SplitByPathPlugin = require("webpack-split-by-path");
 
 
 const TARGET = process.env.npm_lifecycle_event || "start";
@@ -14,20 +16,7 @@ const PATHS = {
 
 const common = {
     entry: {
-        index: [PATHS.app],
-        vendor: [
-            "react",
-            "react-dom",
-            "immutable",
-            "react-redux",
-            "classnames",
-            "axios",
-            "redux",
-            "uniloc",
-            "redux-thunk",
-            "redux-multi",
-            "react-immutable-proptypes"
-        ]
+        index: [PATHS.app]
     },
     resolve: {
         extensions: ["", ".js", ".jsx"]
@@ -58,7 +47,11 @@ const common = {
     plugins: [
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.optimize.CommonsChunkPlugin("vendor", "[name].js")
+        new SplitByPathPlugin([{
+            name: "vendor",
+            path: path.join(__dirname, "node_modules")
+        }]),
+        new VendorChunkPlugin("vendor")
     ]
 };
 
@@ -101,6 +94,14 @@ if (TARGET === "build") {
     console.info("Webpack Export: BUILD MODE!");
     module.exports = merge(common, {
         production: true,
-        debug: false
+        debug: false,
+
+        plugins: [
+            new webpack.optimize.UglifyJsPlugin({
+                compress: {
+                    warnings: false
+                }
+            })
+        ]
     });
 }
