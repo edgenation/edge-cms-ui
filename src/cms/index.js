@@ -1,10 +1,10 @@
 import reducers from "./reducers";
-import makeStore from "./core/store";
+import configureStore from "./core/store";
 import actors from "./actors";
 import { navigationComplete } from "./actions/navigation";
 
 export default function CMS() {
-    const store = makeStore(reducers);
+    const store = configureStore(reducers);
 
     // Handle changes to our store with a list of actor functions, but ensure
     // that the actor sequence cannot be started by a dispatch from an actor
