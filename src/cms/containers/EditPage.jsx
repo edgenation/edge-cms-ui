@@ -25,6 +25,7 @@ class EditPage extends React.Component {
 
     render() {
         const id = this.props.state.page.getIn(["page", "id"]);
+        const error = this.props.state.page.get("error");
         const attributes = this.props.state.page.getIn(["page", "attributes"]);
 
         const newContent = Map({ attributes: Map({ data: Map() }) });
@@ -51,6 +52,12 @@ class EditPage extends React.Component {
                                 </div>
                             </div>
                         )}
+                    </div>
+                }
+
+                {error &&
+                    <div>
+                        <p>Error: {error.get("status")} - {error.get("error")}</p>
                     </div>
                 }
             </div>

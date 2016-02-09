@@ -29,6 +29,13 @@ export function page(state = INITIAL_PAGE_STATE, action = {}) {
                 lastUpdated: action.receivedAt
             });
 
+        case T.PAGE.FETCH_ERROR:
+            return Map({
+                isFetching: false,
+                error: fromJS({id: action.id, ...action.error}),
+                lastUpdated: action.receivedAt
+            });
+
         case T.PAGE.UPDATE:
         case T.PAGE_CONTENT.CREATE:
         case T.PAGE_CONTENT.UPDATE:

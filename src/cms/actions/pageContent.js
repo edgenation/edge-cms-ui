@@ -1,48 +1,34 @@
-import * as PageContentAPI from "../core/api/pageContent";
-import * as ContentAPI from "../core/api/content";
 import T from "../constants/ACTION_TYPES";
-import { responseReceived } from "./api";
 
 
+/**
+ * An action to update a pages content item
+ *
+ * @param {string} id - The ID of the content to update
+ * @param {Object} attributes - The updated attributes
+ * @returns {{type: string, id: string, attributes: Object}}
+ */
 export function updatePageContent(id, attributes) {
-    return [
-        { type: T.PAGE_CONTENT.UPDATE, id, attributes },
-        (dispatch) => {
-            ContentAPI.update(id, { attributes })
-                .then(function (response) {
-                    dispatch(responseReceived(T.PAGE_CONTENT.UPDATE_SUCCESS, id, response));
-                });
-            // TODO: Catch errors
-            //dispatch(responseReceived(T.PAGE.UPDATE_ERROR, id, response));
-        }
-    ];
+    return { type: T.PAGE_CONTENT.UPDATE, id, attributes }
 }
 
+/**
+ * An action to create a new page content item
+ *
+ * @param {Object} attributes - The new attributes
+ * @param {string} regionId - The ID of the region this content belongs to
+ * @returns {{type: string, regionId: string, attributes: Object}}
+ */
 export function createPageContent(attributes, regionId) {
-    return [
-        { type: T.PAGE_CONTENT.CREATE, regionId, attributes },
-        (dispatch) => {
-            PageContentAPI.create(regionId, attributes)
-                .then(function (response) {
-                    dispatch(responseReceived(T.PAGE_CONTENT.CREATE_SUCCESS, regionId, response));
-                });
-            // TODO: Catch errors
-            //dispatch(responseReceived(T.PAGE.UPDATE_ERROR, id, response));
-        }
-    ];
+    return { type: T.PAGE_CONTENT.CREATE, regionId, attributes };
 }
 
-
+/**
+ * An action to delete a pages content item
+ *
+ * @param {string} id - The ID of the content to delete
+ * @returns {{type: string, id: string}}
+ */
 export function deletePageContent(id) {
-    return [
-        { type: T.PAGE_CONTENT.DELETE, id },
-        (dispatch) => {
-            PageContentAPI.remove(id)
-                .then(function (response) {
-                    dispatch(responseReceived(T.PAGE_CONTENT.DELETE_SUCCESS, id, response));
-                });
-            // TODO: Catch errors
-            //dispatch(responseReceived(T.PAGE.UPDATE_ERROR, id, response));
-        }
-    ];
+    return { type: T.PAGE_CONTENT.DELETE, id };
 }
