@@ -3,8 +3,14 @@ import { fetchPage } from "../actions/page";
 
 function shouldFetch(location, data) {
     let lastUpdated = data.get("lastUpdated");
+    let errorId = data.getIn(["error", "id"]);
     let dataId = data.getIn(["page", "id"]);
     let urlId = location.options.id;
+
+    // If request failed - dont try to re-load
+    if (errorId && errorId === urlId) {
+        return false;
+    }
 
     // Never fetched
     if (!lastUpdated) {

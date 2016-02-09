@@ -1,15 +1,17 @@
 import { take, put, call, fork } from "redux-saga";
 import T from "../constants/ACTION_TYPES";
 import * as PageAPI from "../core/api/page";
-import { responseReceived } from "../actions/api";
+import { responseSuccess, responseError } from "../actions/api";
 
-
-// TODO: Catch errors
-//dispatch(responseReceived(T.PAGE.UPDATE_ERROR, id, response));
 
 function *fetchPage(id) {
-    const response = yield call(PageAPI.fetch, id);
-    yield put(responseReceived(T.PAGE.FETCH_SUCCESS, id, response));
+    try {
+        const response = yield call(PageAPI.fetch, id);
+        yield put(responseSuccess(T.PAGE.FETCH_SUCCESS, id, response));
+    }
+    catch(err) {
+        yield put(responseError(T.PAGE.FETCH_ERROR, id, err.data));
+    }
 }
 
 export function *watchFetchPage() {
@@ -24,6 +26,6 @@ export function *watchUpdatePage() {
 
     while ((data = yield take(T.PAGE.UPDATE))) {
         let response = yield call(PageAPI.update, data.id, { attributes: data.attrs });
-        yield put(responseReceived(T.PAGE.UPDATE_SUCCESS, data.id, response));
+        yield put(responseSuccess(T.PAGE.UPDATE_SUCCESS, data.id, response));
     }
 }
