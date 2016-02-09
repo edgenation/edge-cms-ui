@@ -16,7 +16,7 @@ const PATHS = {
 
 const common = {
     entry: {
-        index: [PATHS.app]
+        index: ["babel-polyfill", PATHS.app]
     },
     resolve: {
         extensions: ["", ".js", ".jsx"]
