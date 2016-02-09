@@ -1,13 +1,11 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
-import thunk from "redux-thunk";
-import multi from "redux-multi";
 import startupSagas from "../sagas";
 
 export const sagaMiddleware = createSagaMiddleware(...startupSagas);
 
 const createStoreWithMiddleware = compose(
-    applyMiddleware(thunk, multi, sagaMiddleware),
+    applyMiddleware(sagaMiddleware),
     window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore);
 
